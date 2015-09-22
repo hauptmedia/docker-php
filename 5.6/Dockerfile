@@ -17,6 +17,7 @@ RUN	git clone --branch ${CASSANDRA_PHP_DRIVER_GIT_TAG} https://github.com/datast
 	git submodule update --init && \
 	cd ext && \
 	./install.sh && \
-	echo "; DataStax PHP Driver\nextension=cassandra.so" >/etc/php5/mods-available/cassandra.ini && \
-	php5enmod cassandra
+	echo "; DataStax PHP Driver\nextension=cassandra.so" >/etc/php5/mods-available/cassandra.ini
+
+RUN	sed -i "s/;date.timezone =.*/date.timezone = UTC/" /etc/php5/fpm/php.ini
 
