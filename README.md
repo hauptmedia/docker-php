@@ -16,4 +16,6 @@ This container can be used as base image for php applications.
 
 ## Available Environment Variables
 
-* TIMEZONE - sets the container / PHP timezone (default: Etc/UTC)
+* `TIMEZONE` - sets the container / PHP timezone (default: Etc/UTC)
+* `PHP_MEMORY_LIMIT` - sets the php memory_limit
+
