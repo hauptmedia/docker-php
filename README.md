@@ -2,7 +2,7 @@
 
 This container can be used as base image for php applications.
 
-## Installed PHP extensions
+## Installed PHP Extensions
 * acpu
 * cassandra (must be enabled via `php5enmod cassandra`)
 * curl
@@ -10,7 +10,10 @@ This container can be used as base image for php applications.
 * sqlite
 * xdebug
 
-## Available tags
+## Available Tags
 
 `5.6`- Debian jessie based PHP 5.6 image
 
+## Available Environment Variables
+
+* TIMEZONE - sets the container / PHP timezone (default: Etc/UTC)
