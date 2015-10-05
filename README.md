@@ -10,7 +10,7 @@ This container can be used as base image for php applications.
 * mysql
 * sqlite
 * xdebug
-* zend_guard_loader (must be enabled via `php5enmod zend_guard_loader`)
+* zend_guard_loader (must be enabled via `php5dismod opcache && php5enmod zend_guard_loader`)
 
 ## Available Tags
 

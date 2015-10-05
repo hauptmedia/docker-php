@@ -26,9 +26,10 @@ RUN	git clone --branch ${CASSANDRA_PHP_DRIVER_GIT_TAG} https://github.com/datast
 ENV	ZEND_GUARD_LOADER_VERSION 7.0.0
 
 RUN	curl -L --silent http://downloads.zend.com/guard/${ZEND_GUARD_LOADER_VERSION}/zend-loader-php5.6-linux-x86_64.tar.gz | tar -xz --strip=1 -C /tmp && \
-	cp /tmp/ZendGuardLoader.so /tmp/opcache.so /usr/lib/php5/20131226/ && \
-   	echo "zend_extension=ZendGuardLoader.so" >/etc/php5/mods-available/zend_guard_loader.ini && \
-   	echo "zend_extension=opcache.so" >>/etc/php5/mods-available/zend_guard_loader.ini && \
+	mkdir -p /usr/lib/php5/zend-loader && \
+	cp /tmp/ZendGuardLoader.so /tmp/opcache.so /usr/lib/php5/zend-loader/ && \
+   	echo "zend_extension=/usr/lib/php5/zend-loader/ZendGuardLoader.so" >/etc/php5/mods-available/zend_guard_loader.ini && \
+   	echo "zend_extension=/usr/lib/php5/zend-loader/opcache.so" >>/etc/php5/mods-available/zend_guard_loader.ini && \
 	rm -rf /tmp/*
 
 
