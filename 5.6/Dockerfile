@@ -4,7 +4,9 @@ ENV	DEBIAN_FRONTEND noninteractive
 # install required packges
 RUN	apt-get update -qq && \
 	apt-get upgrade -y && \
-	apt-get install -y php5-cli php5-mysql php5-curl php5-apcu php5-xdebug php5-sqlite php-pear mysql-client curl openssl sudo ca-certificates \
+	apt-get install -y php5-cli \
+	php5-mysql php5-curl php5-apcu php5-xdebug php5-gd php5-sqlite \
+	php-pear mysql-client curl openssl sudo ca-certificates \
 	g++ make cmake libuv-dev libssl-dev libgmp-dev php5-dev libpcre3-dev git && \
 	apt-get clean autoclean && \
 	apt-get autoremove --yes && \

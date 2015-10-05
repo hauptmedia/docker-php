@@ -6,6 +6,7 @@ This container can be used as base image for php applications.
 * acpu
 * cassandra (must be enabled via `php5enmod cassandra`)
 * curl
+* gd
 * mysql
 * sqlite
 * xdebug
