@@ -53,6 +53,18 @@ RUN	git clone -o ${KAFKA_PHP_GIT_SHA1} https://github.com/EVODelavega/phpkafka /
 	make install && \
 	echo "; Kafka Extension\nextension=kafka.so" >/etc/php5/mods-available/kafka.ini
 
+# integrate rdkafka extension
+ENV     RDKAFKA_PHP_GIT_SHA1 416a0f992a0d657cf4cdfbe90ad18f882db79e0a
+
+RUN     git clone -o ${RDKAFKA_PHP_GIT_SHA1} https://github.com/arnaud-lb/php-rdkafka /usr/src/php-rdkafka && \
+        cd /usr/src/php-rdkafka && \
+        phpize && \
+        ./configure && \
+        make && \
+        make install && \
+        echo "; RdKafka Extension\nextension=rdkafka.so" >/etc/php5/mods-available/rdkafka.ini
+
+
 ADD	docker-entrypoint.sh /usr/local/sbin/docker-entrypoint.sh
 
 ENTRYPOINT	["/usr/local/sbin/docker-entrypoint.sh"]
