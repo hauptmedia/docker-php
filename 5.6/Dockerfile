@@ -42,17 +42,6 @@ RUN	mkdir -p /usr/src/librdkafka && \
 	dpkg -i /usr/src/librdkafka1_${LIBRDKAFKA_VERSION}_amd64.deb && \
 	dpkg -i /usr/src/librdkafka-dev_${LIBRDKAFKA_VERSION}_amd64.deb 
 
-# integrate kafka extension
-ENV	KAFKA_PHP_GIT_SHA1 828763013e858a2bada6c403861e27aced16d003
-
-RUN	git clone -o ${KAFKA_PHP_GIT_SHA1} https://github.com/EVODelavega/phpkafka /usr/src/phpkafka && \
-	cd /usr/src/phpkafka && \
-	phpize && \
-	./configure --enable-kafka && \
-	make && \
-	make install && \
-	echo "; Kafka Extension\nextension=kafka.so" >/etc/php5/mods-available/kafka.ini
-
 # integrate rdkafka extension
 ENV     RDKAFKA_PHP_GIT_SHA1 416a0f992a0d657cf4cdfbe90ad18f882db79e0a
 
