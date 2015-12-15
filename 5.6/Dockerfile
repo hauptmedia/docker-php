@@ -22,7 +22,7 @@ RUN	git clone --branch ${CASSANDRA_PHP_DRIVER_GIT_TAG} https://github.com/datast
 	./install.sh && \
 	echo "; DataStax PHP Driver\nextension=cassandra.so" >/etc/php5/mods-available/cassandra.ini
 
-# integrated zend loader
+# integrate zend loader
 ENV	ZEND_GUARD_LOADER_VERSION 7.0.0
 
 RUN	curl -L --silent http://downloads.zend.com/guard/${ZEND_GUARD_LOADER_VERSION}/zend-loader-php5.6-linux-x86_64.tar.gz | tar -xz --strip=1 -C /tmp && \
@@ -31,6 +31,27 @@ RUN	curl -L --silent http://downloads.zend.com/guard/${ZEND_GUARD_LOADER_VERSION
    	echo "zend_extension=/usr/lib/php5/zend-loader/ZendGuardLoader.so" >/etc/php5/mods-available/zend_guard_loader.ini && \
    	echo "zend_extension=/usr/lib/php5/zend-loader/opcache.so" >>/etc/php5/mods-available/zend_guard_loader.ini && \
 	rm -rf /tmp/*
+
+# integrate librdkafka
+ENV	LIBRDKAFKA_VERSION 0.8.6-1
+
+RUN	mkdir -p /usr/src/librdkafka && \
+	curl -L --silent https://github.com/edenhill/librdkafka/archive/debian/${LIBRDKAFKA_VERSION}.tar.gz | tar -xz --strip=1 -C /usr/src/librdkafka && \
+	cd /usr/src/librdkafka && \
+	dpkg-buildpackage -B && \
+	dpkg -i /usr/src/librdkafka1_${LIBRDKAFKA_VERSION}_amd64.deb && \
+	dpkg -i /usr/src/librdkafka-dev_${LIBRDKAFKA_VERSION}_amd64.deb 
+
+# integrate rdkafka extension
+ENV     RDKAFKA_PHP_GIT_SHA1 416a0f992a0d657cf4cdfbe90ad18f882db79e0a
+
+RUN     git clone -o ${RDKAFKA_PHP_GIT_SHA1} https://github.com/arnaud-lb/php-rdkafka /usr/src/php-rdkafka && \
+        cd /usr/src/php-rdkafka && \
+        phpize && \
+        ./configure && \
+        make && \
+        make install && \
+        echo "; RdKafka Extension\nextension=rdkafka.so" >/etc/php5/mods-available/rdkafka.ini
 
 
 ADD	docker-entrypoint.sh /usr/local/sbin/docker-entrypoint.sh
