@@ -16,6 +16,7 @@ This container can be used as base image for php applications.
 ## Available Tags
 
 `5.6`- Debian jessie based PHP 5.6 image
+`7.0`- Debian stretch based PHP 7.0 image
 
 ## Available Environment Variables
 
